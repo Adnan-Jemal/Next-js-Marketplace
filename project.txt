@@ -1,0 +1,6 @@
+What the project should have
+>we want it to be something like facebook marketplace
+>the ability to browse items 
+>the ability to list or add items
+>authentication with firebase google and maybe email
+>the ability to contact or send the seller a message
