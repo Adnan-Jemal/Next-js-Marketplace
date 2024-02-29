@@ -1,9 +1,12 @@
 import React from "react";
+import { ModeToggle } from "./darkModeToggle";
 
 const Navbar = () => {
   return (
-    <div className="w-full bg-primary h-24 ">
-      <nav>Navbar</nav>
+    <div className="w-full  h-24 ">
+      
+      <ModeToggle/>
+
     </div>
   );
 };
