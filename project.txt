@@ -12,3 +12,5 @@ page for each categories, listing products in the specific categories
 page for each item or product 
 Search page
 account page to see all the orders and messages you got
+chat page 
+
