@@ -1,9 +1,21 @@
-import React from 'react'
+import NavCategories from "@/components/NavCategories";
 
-const CategoryPage = () => {
+type protTypes = {
+  params: {
+    catName: String;
+  };
+};
+
+const CategoryPage = ({ params }: protTypes) => {
   return (
-    <div>CategoryPage</div>
-  )
-}
+    <div className="">
+      <NavCategories />
+      <div className="flex items-center justify-center mt-6">
+        
+        <h1 className="mx-auto text-4xl">{params.catName}</h1>
+      </div>
+    </div>
+  );
+};
 
-export default CategoryPage
+export default CategoryPage;

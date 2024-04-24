@@ -1,10 +1,9 @@
-
+import NavCategories from "@/components/NavCategories";
 
 export default function Home() {
-  
   return (
-    <main className="">
-      This is Koralew or  ቆራልዬ Marketplace
-    </main>
+    <div className="">
+   <NavCategories/>
+    </div>
   );
 }
