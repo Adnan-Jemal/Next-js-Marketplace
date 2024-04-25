@@ -14,7 +14,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "../ui/label";
-
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/firebase";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -40,48 +43,59 @@ const LoginForm = () => {
     // ✅ This will be type-safe and validated.
     console.log(values);
   }
+  const [user, loading, error] = useAuthState(auth);
+  const router = useRouter();
+  useEffect(() => {
+    if (user) {
+      if (user) {
+        router.push("/");
+      }
+    }
+  }, [loading]);
+  return (
+    <>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex w-[60%] lg:w-[50%] flex-col gap-6"
+        >
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <>
+                <Label className="">Email</Label>
+                <FormItem>
+                  <FormControl>
+                    <Input placeholder="Email ..." {...field} />
+                  </FormControl>
 
-  return (<>
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-[50%] flex-col gap-6">
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <>
-              <Label className="">Email</Label>
-              <FormItem>
-                <FormControl>
-                  <Input  placeholder="Email ..." {...field} />
-                </FormControl>
+                  <FormMessage />
+                </FormItem>
+              </>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <>
+                <Label className="">Password</Label>
+                <FormItem>
+                  <FormControl>
+                    <Input placeholder="password ..." {...field} />
+                  </FormControl>
 
-                <FormMessage />
-              </FormItem>
-            </>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <>
-              <Label className="">Password</Label>
-              <FormItem>
-                <FormControl>
-                  <Input placeholder="password ..." {...field} />
-                </FormControl>
-
-                <FormMessage />
-              </FormItem>
-            </>
-          )}
-        />
-        <Button variant={'default'} type="submit">Log In</Button>
-        
-      </form>
-      
-    </Form>
-   
+                  <FormMessage />
+                </FormItem>
+              </>
+            )}
+          />
+          <Button variant={"default"} type="submit">
+            Log In
+          </Button>
+        </form>
+      </Form>
     </>
   );
 };
