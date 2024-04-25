@@ -1,4 +1,5 @@
-import NavCategories from "@/components/NavCategories";
+import NavCategories from "@/components/Nav/NavCategories";
+import Navbar from "@/components/Nav/Navbar";
 
 type protTypes = {
   params: {
@@ -8,13 +9,15 @@ type protTypes = {
 
 const CategoryPage = ({ params }: protTypes) => {
   return (
-    <div className="">
+    <>
+      <Navbar />
       <NavCategories />
-      <div className="flex items-center justify-center mt-6">
-        
-        <h1 className="mx-auto text-4xl">{params.catName}</h1>
+      <div className="">
+        <div className="flex items-center justify-center mt-6">
+          <h1 className="mx-auto text-4xl">{params.catName}</h1>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,9 +1,13 @@
-import React from 'react'
+import Navbar from "@/components/Nav/Navbar";
+import React from "react";
 
 const ItemPage = () => {
   return (
-    <div>ItemPage</div>
-  )
-}
+    <>
+      <Navbar />
+      <div>ItemPage</div>
+    </>
+  );
+};
 
-export default ItemPage
+export default ItemPage;

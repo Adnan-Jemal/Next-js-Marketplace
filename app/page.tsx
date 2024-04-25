@@ -1,9 +1,12 @@
-import NavCategories from "@/components/NavCategories";
+import NavCategories from "@/components/Nav/NavCategories";
+import Navbar from "@/components/Nav/Navbar";
 
 export default function Home() {
   return (
-    <div className="">
-   <NavCategories/>
-    </div>
+    <>
+      <Navbar />
+      <NavCategories />
+      <div className=""></div>
+    </>
   );
 }

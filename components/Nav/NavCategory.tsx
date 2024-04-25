@@ -8,6 +8,7 @@ type propTypes = {
   children?: React.ReactNode;
 };
 const NavCategory = ({ categoryName, children }: propTypes) => {
+  //used to check if the current tap is selected 
   const params = useParams<{ tag: string; catName: string }>();
 
   return (
