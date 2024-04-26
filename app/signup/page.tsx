@@ -1,10 +1,23 @@
+"use client";
 import SignupForm from "@/components/Auth/SignupForm";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import GoogleLogin from "@/components/Auth/GoogleLogin";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useEffect } from "react";
+import { auth } from "@/firebase";
 
 const SignupPage = () => {
+  const [user, loading, error] = useAuthState(auth);
+  const router = useRouter();
+  useEffect(() => {
+    if (user) {
+        router.push("/");
+
+    }
+  }, [loading]);
   return (
     <div className="grid h-screen grid-cols-1 lg:grid-cols-2">
       <div className=" flex flex-col relative gap-6  items-center justify-center">
@@ -26,9 +39,7 @@ const SignupPage = () => {
         </div>
       </div>
       <div className="hidden lg:inline-grid ">
-        <img className="h-full object-cover " src="/bmesh.png"  />
-
-
+        <img className="h-full object-cover " src="/bmesh.png" />
       </div>
     </div>
   );

@@ -23,7 +23,7 @@ const NavProfile = () => {
           {user ? (
             <Avatar>
               <AvatarImage src={user.photoURL!} />
-              <AvatarFallback>{user.displayName?.charAt(0)}</AvatarFallback>
+              <AvatarFallback className="text-xl">{user.email?.charAt(0).toUpperCase()}</AvatarFallback>
             </Avatar>
           ) : (
             <User2 className="bg-secondary rounded-full p-2 size-9" />

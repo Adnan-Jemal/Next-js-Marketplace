@@ -14,18 +14,28 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "../ui/label";
-import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  useAuthState,
+  useCreateUserWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
 import { auth } from "@/firebase";
-import { useEffect } from "react";
+
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   email: z.string().email({
     message: "Invalid email",
   }),
-  password: z.string().min(4, {
-    message: "password too short",
-  }),
+  password: z
+    .string()
+    .min(6, {
+      message: "Password must be at least 6 characters long",
+    })
+    .regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]+$/, {
+      message:
+        "Must contain at least one letter, number, and special character.",
+    }),
 });
 
 const SignupForm = () => {
@@ -37,23 +47,30 @@ const SignupForm = () => {
       password: "",
     },
   });
+  const router = useRouter();
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await createUserWithEmailAndPassword(values.email, values.password);
   }
-  const [user, loading, error] = useAuthState(auth);
-  const router = useRouter()
-useEffect(() => {
-  if(user){
-    if (user) {
-      router.push("/");
+  const clearErrors = () => {
+    form.clearErrors("email");
+    form.clearErrors("password");
+    form.clearErrors("root");
+  };
+  useEffect(() => {
+    {
+      if (error) {
+        form.setError("email", {
+          message: 'Email already exists',
+        });
+      } else if (user) {
+        clearErrors();
+        router.push("/");
+      }
     }
-  
-  }
-
-}, [loading])
+  }, [loading]);
 
   return (
     <>
@@ -94,9 +111,14 @@ useEffect(() => {
               </>
             )}
           />
-          <Button variant={"default"} type="submit">
-            Sign UP
+          <Button disabled={loading} variant={"default"} type="submit">
+            {loading ? (
+              <span className="text-4xl animate-bounce">...</span>
+            ) : (
+              <span>Sign UP</span>
+            )}
           </Button>
+       
         </form>
       </Form>
     </>
