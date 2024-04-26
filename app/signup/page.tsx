@@ -1,8 +1,8 @@
 "use client";
-import SignupForm from "@/components/Auth/SignupForm";
+import SignupForm from "@/components/auth/SignupForm";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import GoogleLogin from "@/components/Auth/GoogleLogin";
+import GoogleLogin from "@/components/auth/GoogleLogin";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -14,8 +14,7 @@ const SignupPage = () => {
   const router = useRouter();
   useEffect(() => {
     if (user) {
-        router.push("/");
-
+      router.push("/");
     }
   }, [loading]);
   return (

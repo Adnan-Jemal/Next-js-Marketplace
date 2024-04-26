@@ -42,7 +42,7 @@ const RestPasswordForm = () => {
       router.push("/login");
       toast("Password reset email sent");
     } else {
-      form.setError("email", { message: 'invalid email' });
+      form.setError("email", { message: 'account not found' });
     }
   }
 

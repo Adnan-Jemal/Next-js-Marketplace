@@ -3,22 +3,25 @@ import { Button } from "../ui/button";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 const GoogleLogin = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
   const router = useRouter();
 
   const signIn = async () => {
-    try {
-      await signInWithGoogle().then(() => router.push("/"));
-    } catch (error) {
-      console.log(error);
-    }
-
-    if (user) {
-      router.push("/");
-    }
+    await signInWithGoogle();
   };
+  useEffect(() => {
+    {
+      if (error) {
+        toast('Something went wrong')
+      } else if (user) {
+        router.push("/");
+      }
+    }
+  }, [loading]);
 
   return (
     <div className="w-[50%] flex flex-col gap-4">

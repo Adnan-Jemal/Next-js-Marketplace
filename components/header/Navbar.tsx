@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ModeToggle } from "../darkModeToggle";
+import { ModeToggle } from "./darkModeToggle";
 import NavProfile from "./NavProfile";
 import { Search } from "lucide-react";
 

@@ -1,5 +1,5 @@
-import NavCategories from "@/components/Nav/NavCategories";
-import Navbar from "@/components/Nav/Navbar";
+import NavCategories from "@/components/header/NavCategories";
+import Navbar from "@/components/header/Navbar";
 
 type protTypes = {
   params: {

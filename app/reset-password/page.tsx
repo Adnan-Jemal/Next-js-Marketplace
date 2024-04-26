@@ -1,5 +1,5 @@
 "use client";
-import RestPasswordForm from "@/components/Auth/RestPasswordForm";
+import RestPasswordForm from "@/components/auth/RestPasswordForm";
 
 import { Button } from "@/components/ui/button";
 import { auth } from "@/firebase";

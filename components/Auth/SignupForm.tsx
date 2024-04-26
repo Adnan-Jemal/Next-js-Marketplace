@@ -87,7 +87,7 @@ const SignupForm = () => {
                 <Label className="">Email</Label>
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="Email ..." {...field} />
+                    <Input onFocus={clearErrors} placeholder="Email ..." {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -103,7 +103,7 @@ const SignupForm = () => {
                 <Label className="">Password</Label>
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="password ..." {...field} />
+                    <Input onFocus={clearErrors} placeholder="password ..." {...field} />
                   </FormControl>
 
                   <FormMessage />

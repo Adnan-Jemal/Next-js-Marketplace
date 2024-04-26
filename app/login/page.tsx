@@ -1,6 +1,6 @@
 "use client";
-import GoogleLogin from "@/components/Auth/GoogleLogin";
-import LoginForm from "@/components/Auth/LoginForm";
+import GoogleLogin from "@/components/auth/GoogleLogin";
+import LoginForm from "@/components/auth/LoginForm";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/firebase";
 import { ArrowLeft } from "lucide-react";
@@ -33,13 +33,9 @@ const LoginPage = () => {
         <div className="">
           <span className="text-sm">Don't have an account?</span>
           <Link href={"/signup"}>
-          
             <Button variant={"link"}>Sign Up</Button>
           </Link>
-          
         </div>
-       
-         
       </div>
       <div className="hidden lg:inline-grid">
         <img className="h-full object-cover" src="/bmesh.png" />
