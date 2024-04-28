@@ -9,6 +9,7 @@ import { LogOut } from "lucide-react";
 
 import { useSignOut } from "react-firebase-hooks/auth";
 import Link from "next/link";
+import { Skeleton } from "../ui/skeleton";
 
 const SidebarProfile = () => {
   const [signOut] = useSignOut(auth);
@@ -20,22 +21,32 @@ const SidebarProfile = () => {
   return (
     <div className="mb-6  max-w-[90%] mx-auto flex flex-col gap-5 justify-end">
       <div className="flex  gap-2 px-3 py-4 shadow-sm  rounded-xl  border-secondary border-2">
-        {user && (
+        {user ? (
           <Avatar className="size-12">
             <AvatarImage src={user.photoURL!} />
             <AvatarFallback className="text-xl">
               {user.email?.charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
+        ) : (
+          <Skeleton className="size-12 rounded-full" />
         )}
         <div className="grow overflow-hidden">
           <h2 className="text-lg font-semibold truncate">
-            {userDataLoading ? "Loading..." : userData ? userData.name : ""}
+            {userDataLoading ? (
+              <Skeleton className="h-4 w-24 mt-1" />
+            ) : userData ? (
+              userData.name
+            ) : (
+              <Skeleton className="h-4 w-24 mt-1" />
+            )}
           </h2>
-          {userData && (
+          {userData ? (
             <p className="text-muted-foreground text-sm truncate">
               {user?.email}
             </p>
+          ) : (
+            <Skeleton className="h-4 w-30 mt-2" />
           )}
         </div>
       </div>
