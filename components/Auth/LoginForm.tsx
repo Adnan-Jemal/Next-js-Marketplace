@@ -90,11 +90,7 @@ const LoginForm = () => {
                 <Label className="">Email</Label>
                 <FormItem>
                   <FormControl>
-                    <Input
-                      onFocus={clearErrors}
-                      placeholder="Email ..."
-                      {...field}
-                    />
+                    <Input placeholder="Email ..." {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -110,11 +106,7 @@ const LoginForm = () => {
                 <Label className="">Password</Label>
                 <FormItem>
                   <FormControl>
-                    <Input
-                      onFocus={clearErrors}
-                      placeholder="password ..."
-                      {...field}
-                    />
+                    <Input placeholder="password ..." {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -130,7 +122,6 @@ const LoginForm = () => {
             )}
           </Button>
           <Link className="self-center" href={"/reset-password"}>
-           
             <Button variant={"link"}>Forgot Password?</Button>
           </Link>
         </form>

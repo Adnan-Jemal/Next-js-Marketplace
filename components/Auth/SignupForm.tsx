@@ -18,14 +18,18 @@ import {
   useAuthState,
   useCreateUserWithEmailAndPassword,
 } from "react-firebase-hooks/auth";
-import { auth } from "@/firebase";
+import { auth, db } from "@/firebase";
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { collection, doc, setDoc } from "firebase/firestore";
 
 const formSchema = z.object({
   email: z.string().email({
     message: "Invalid email",
+  }),
+  name:z.string().min(4,{
+    message:"Enter name correctly"
   }),
   password: z
     .string()
@@ -45,6 +49,7 @@ const SignupForm = () => {
     defaultValues: {
       email: "",
       password: "",
+      name:''
     },
   });
   const router = useRouter();
@@ -52,18 +57,32 @@ const SignupForm = () => {
     useCreateUserWithEmailAndPassword(auth);
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await createUserWithEmailAndPassword(values.email, values.password);
+    await createUserWithEmailAndPassword(values.email, values.password).then(
+      //create a user Document
+      async (usr) => {
+        if (usr) {
+          await setDoc(doc(collection(db, "users"), usr.user.uid), {
+            email: usr.user.email,
+            name: values.name,
+            image: '',
+            createdTime: usr.user.metadata.creationTime,
+            uid: usr.user.uid,
+          });
+        }
+      }
+    );
   }
   const clearErrors = () => {
     form.clearErrors("email");
     form.clearErrors("password");
+    form.clearErrors('name')
     form.clearErrors("root");
   };
   useEffect(() => {
     {
       if (error) {
         form.setError("email", {
-          message: 'Email already exists',
+          message: "Email already exists",
         });
       } else if (user) {
         clearErrors();
@@ -77,8 +96,28 @@ const SignupForm = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex w-[60%] lg:w-[50%]  flex-col gap-6"
+          className="flex w-[60%] lg:w-[50%]  flex-col gap-4"
         >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <>
+                <Label className="">Full Name</Label>
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      
+                      placeholder="Full Name ..."
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              </>
+            )}
+          />
           <FormField
             control={form.control}
             name="email"
@@ -87,7 +126,11 @@ const SignupForm = () => {
                 <Label className="">Email</Label>
                 <FormItem>
                   <FormControl>
-                    <Input onFocus={clearErrors} placeholder="Email ..." {...field} />
+                    <Input
+                      
+                      placeholder="Email ..."
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -103,7 +146,11 @@ const SignupForm = () => {
                 <Label className="">Password</Label>
                 <FormItem>
                   <FormControl>
-                    <Input onFocus={clearErrors} placeholder="password ..." {...field} />
+                    <Input
+                      
+                      placeholder="password ..."
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -111,14 +158,13 @@ const SignupForm = () => {
               </>
             )}
           />
-          <Button disabled={loading} variant={"default"} type="submit">
+          <Button disabled={loading} variant={"default"} className="mt-4" type="submit">
             {loading ? (
               <span className="text-4xl animate-bounce">...</span>
             ) : (
               <span>Sign UP</span>
             )}
           </Button>
-       
         </form>
       </Form>
     </>
