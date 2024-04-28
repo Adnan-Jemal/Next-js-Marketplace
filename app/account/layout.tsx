@@ -1,5 +1,5 @@
 import Sidebar from "@/components/account/Sidebar";
-import AccountHeader from "@/components/header/AccountHeader";
+import AccountHeader from "@/components/account/AccountHeader";
 import Navbar from "@/components/header/Navbar";
 
 export default function RootLayout({
@@ -12,7 +12,7 @@ export default function RootLayout({
       <div className="flex">
         <Sidebar />
         <div className="w-full h-full">
-          <AccountHeader/>
+          <AccountHeader />
           {children}
         </div>
       </div>

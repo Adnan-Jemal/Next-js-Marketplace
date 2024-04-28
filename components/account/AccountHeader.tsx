@@ -1,9 +1,9 @@
 import React from "react";
 import { Button } from "../ui/button";
 import { PackagePlus } from "lucide-react";
-import { ModeToggle } from "./darkModeToggle";
+import { ModeToggle } from "../header/darkModeToggle";
 import Link from "next/link";
-import MobileSidebar from "../account/MobileSidebar";
+import MobileSidebar from "./MobileSidebar";
 
 const AccountHeader = () => {
   return (
