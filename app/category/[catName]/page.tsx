@@ -14,7 +14,7 @@ const CategoryPage = ({ params }: protTypes) => {
       <NavCategories />
       <div className="">
         <div className="flex items-center justify-center mt-6">
-          <h1 className="mx-auto text-4xl">{params.catName}</h1>
+          <h1 className="mx-auto text-4xl">{params.catName.toLocaleUpperCase()}</h1>
         </div>
       </div>
     </>

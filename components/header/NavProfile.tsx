@@ -23,7 +23,9 @@ const NavProfile = () => {
           {user ? (
             <Avatar>
               <AvatarImage src={user.photoURL!} />
-              <AvatarFallback className="text-xl">{user.email?.charAt(0).toUpperCase()}</AvatarFallback>
+              <AvatarFallback className="text-xl">
+                {user.email?.charAt(0).toUpperCase()}
+              </AvatarFallback>
             </Avatar>
           ) : (
             <User2 className="bg-secondary rounded-full p-2 size-9" />
@@ -36,13 +38,13 @@ const NavProfile = () => {
           className="border-secondary border-2 rounded-xl w-40 "
           align="start"
         >
-          <Link href={"/"}>
+          <Link href={"/account/dashboard"}>
             <DropdownMenuItem className="cursor-pointer">
               Account
             </DropdownMenuItem>
           </Link>
 
-          <Link href={"/"}>
+          <Link href={"/account/messages"}>
             <DropdownMenuItem className="cursor-pointer">
               Messages
             </DropdownMenuItem>
