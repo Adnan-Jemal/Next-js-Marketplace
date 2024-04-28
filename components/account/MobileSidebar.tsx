@@ -1,4 +1,4 @@
-import { SidebarOpen } from "lucide-react";
+import { Menu, SidebarOpen } from "lucide-react";
 import { Button } from "../ui/button";
 import {
   Sheet,
@@ -15,13 +15,13 @@ const MobileSidebar = () => {
   return (
     <div className="sm:hidden">
       <Sheet>
-        <SheetTrigger asChild className=" ">
+        <SheetTrigger asChild className=" border-none mt-1  ">
           <Button
-            variant={"outline"}
+            variant={"ghost"}
             size={"icon"}
-            className="bg-background h-[81px] rounded-none  border-b-2 border-b-secondary"
+            className=""
           >
-            <SidebarOpen />
+            <Menu className="size-8" />
           </Button>
         </SheetTrigger>
 

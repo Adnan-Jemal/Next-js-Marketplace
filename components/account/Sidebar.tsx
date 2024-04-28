@@ -20,7 +20,7 @@ import MobileSidebar from "./MobileSidebar";
 const Sidebar = () => {
   return (
     <>
-     <MobileSidebar/>
+     
       <div className=" hidden sm:inline-flex max-w-[300px] min-h-screen  flex-col gap-5 bg-background border-r-2 border-secondary  ">
         <div className="border-b-2 py-[22px] border-secondary px-6">
           <Link href={"/"} className="">
