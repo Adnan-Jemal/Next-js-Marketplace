@@ -28,7 +28,7 @@ const NavProfile = () => {
               </AvatarFallback>
             </Avatar>
           ) : (
-            <User2 className="bg-secondary rounded-full p-2 size-9" />
+            <User2 className="bg-secondary rounded-full p-2 h-[40px] w-[40px]" />
           )}
         </div>
       </DropdownMenuTrigger>

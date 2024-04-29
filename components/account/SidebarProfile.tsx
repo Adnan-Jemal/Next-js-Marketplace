@@ -19,7 +19,7 @@ const SidebarProfile = () => {
   );
 
   return (
-    <div className="mb-6  max-w-[90%] mx-auto flex flex-col gap-5 justify-end">
+    <div className="mb-6  w-[90%] mx-auto flex flex-col gap-5 justify-end">
       <div className="flex  gap-2 px-3 py-4 shadow-sm  rounded-xl  border-secondary border-2">
         {user ? (
           <Avatar className="size-12">

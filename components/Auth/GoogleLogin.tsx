@@ -27,7 +27,7 @@ const GoogleLogin = () => {
           image: usr.user.photoURL,
           createdTime: usr.user.metadata.creationTime,
           uid: usr.user.uid,
-        });
+        },{ merge: true });
       }
     });
   };

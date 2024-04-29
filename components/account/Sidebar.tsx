@@ -5,8 +5,7 @@ import SidebarProfile from "./SidebarProfile";
 const Sidebar = () => {
   return (
     <>
-     
-      <div className=" hidden sm:inline-flex max-w-[300px] min-h-screen  flex-col gap-5 bg-background border-r-2 border-secondary  ">
+      <div className=" hidden sticky top-0 sm:inline-flex w-[300px] h-screen flex-col gap-5 bg-background border-r-2 border-secondary  ">
         <div className="border-b-2 py-[22px] border-secondary px-6">
           <Link href={"/"} className="">
             <h1 className="font-bold text-2xl  sm:text-3xl">Koralew</h1>
