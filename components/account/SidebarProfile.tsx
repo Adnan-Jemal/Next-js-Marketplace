@@ -25,7 +25,7 @@ const SidebarProfile = () => {
           <Avatar className="size-12">
             <AvatarImage src={user.photoURL!} />
             <AvatarFallback className="text-xl">
-              {user.email?.charAt(0).toUpperCase()}
+              {userData?.name.charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
         ) : (

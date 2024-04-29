@@ -1,21 +1,6 @@
 import Link from "next/link";
-import { Button } from "../ui/button";
-import {
-  Heart,
-  LayoutDashboard,
-  MessagesSquare,
-  Package,
-  PackagePlus,
-  Plus,
-  Settings,
-  SidebarOpen,
-  UserCog,
-  Users,
-} from "lucide-react";
-
 import SidebarMenus from "./SidebarMenus";
 import SidebarProfile from "./SidebarProfile";
-import MobileSidebar from "./MobileSidebar";
 
 const Sidebar = () => {
   return (
