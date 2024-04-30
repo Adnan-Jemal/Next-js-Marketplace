@@ -9,15 +9,21 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { auth, db } from "@/firebase";
-import { useAuthState, useDeleteUser } from "react-firebase-hooks/auth";
+import {
+  useAuthState,
+  useDeleteUser,
+  useSignOut,
+} from "react-firebase-hooks/auth";
 import { toast } from "sonner";
 import { doc, deleteDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { AwardIcon } from "lucide-react";
 
 const DeleteAccount = () => {
   const [user, usrloading] = useAuthState(auth);
   const [deleteUser, loading, error] = useDeleteUser(auth);
+  const [signOut] = useSignOut(auth);
   const [deleting, setDeleting] = useState(false);
   const router = useRouter();
 
@@ -27,10 +33,10 @@ const DeleteAccount = () => {
       setDeleting(true);
       await deleteDoc(doc(db, "users", user?.uid))
         .then(async () => await deleteUser())
+        .then(async () => await signOut())
         .then(() => router.push("/"))
         .then(() => setDeleting(false))
-        .then(() => toast("You have been deleted permanently."))
-        ;
+        .then(() => toast("You have been deleted permanently."));
     }
   };
   return (
