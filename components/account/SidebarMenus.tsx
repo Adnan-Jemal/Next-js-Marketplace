@@ -8,10 +8,14 @@ import {
   UserCog,
 } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 
-const SidebarMenus = () => {
+type PropType = {
+  setOpen?: Dispatch<SetStateAction<boolean>>;
+};
+
+const SidebarMenus = ({ setOpen }: PropType) => {
   const menuItems = [
     {
       link: "/account/dashboard",
@@ -54,9 +58,18 @@ const SidebarMenus = () => {
   return (
     <>
       {menuItems.map((item) => (
-        <Link onClick={() => setCurrentPath(item.link)} href={item.link}>
+        <Link
+          onClick={() => {
+            setCurrentPath(item.link);
+            setOpen&&setOpen(false);
+          }}
+          href={item.link}
+        >
           <Button
-            onClick={() => setCurrentPath(item.link)}
+            onClick={() => {
+              setCurrentPath(item.link);
+              setOpen&&setOpen(false);
+            }}
             variant={"outline"}
             size={"lg"}
             className={`flex items-center justify-start w-full text-md border-none transition-colors select-none ${
