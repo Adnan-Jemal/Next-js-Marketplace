@@ -4,15 +4,10 @@ import { useDocumentData } from "react-firebase-hooks/firestore";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { auth, db } from "@/firebase";
 import { doc } from "firebase/firestore";
-import { Button } from "../ui/button";
-import { LogOut } from "lucide-react";
-
-import { useSignOut } from "react-firebase-hooks/auth";
-import Link from "next/link";
 import { Skeleton } from "../ui/skeleton";
+import LogoutBtn from "./LogoutBtn";
 
 const SidebarProfile = () => {
-  const [signOut] = useSignOut(auth);
   const [user, loading] = useAuthState(auth);
   const [userData, userDataLoading, userDataError] = useDocumentData(
     user ? doc(db, "users", user.uid) : null
@@ -50,16 +45,7 @@ const SidebarProfile = () => {
           )}
         </div>
       </div>
-      <Link className="justify-center" href="/">
-        <Button
-          onClick={signOut}
-          variant={"ghost"}
-          className="hover:text-red-500 gap-2"
-        >
-          <LogOut className="text-sm" />
-          Log Out
-        </Button>
-      </Link>
+      <LogoutBtn />
     </div>
   );
 };
