@@ -13,8 +13,7 @@ import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 
 const ProfilePage = () => {
-  const [signOut] = useSignOut(auth);
-  const [user, loading] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth)
   const [userData, userDataLoading, userDataError] = useDocumentData(
     user ? doc(db, "users", user.uid) : null
   );

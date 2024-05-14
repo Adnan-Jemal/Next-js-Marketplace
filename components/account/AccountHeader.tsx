@@ -7,10 +7,8 @@ import MobileSidebar from "./MobileSidebar";
 
 const AccountHeader = () => {
   return (
-    <div
-      className={` border-b-2 border-secondary sticky top-0 z-10 bg-background`}
-    >
-      <div className=" max-w-7xl select-none px-4 m-auto   flex items-center justify-between gap-2">
+    <div className=" border-b-2 border-secondary sticky top-0 z-10 bg-background">
+      <div className=" max-w-7xl select-none px-4 m-auto flex items-center justify-between gap-2">
         <div className="flex items-center gap-6">
           <MobileSidebar />
           <Link href={"/"} className={"sm:scale-0"}>
