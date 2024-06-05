@@ -12,6 +12,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { signOut } from "firebase/auth";
+import LoggedOutDropDown from "./LoggedOutDropDown";
+import LoggedInDropdown from "./LoggedInDropdown";
+
 
 const NavProfile = () => {
   const [user, loading] = useAuthState(auth);
@@ -32,64 +35,7 @@ const NavProfile = () => {
           )}
         </div>
       </DropdownMenuTrigger>
-      {user ? (
-        <DropdownMenuContent
-          sideOffset={8}
-          className="border-secondary border-2 rounded-xl w-40 "
-          align="start"
-        >
-          <Link href={"/account/dashboard"}>
-            <DropdownMenuItem className="cursor-pointer">
-              Account
-            </DropdownMenuItem>
-          </Link>
-
-          <Link href={"/account/messages"}>
-            <DropdownMenuItem className="cursor-pointer">
-              Messages
-            </DropdownMenuItem>
-          </Link>
-
-          <DropdownMenuSeparator className=" h-[2px]  " />
-          <Link href={"/"}>
-            <DropdownMenuItem className="cursor-pointer">
-              Sell an Item
-            </DropdownMenuItem>
-          </Link>
-          <DropdownMenuSeparator className=" h-[2px]  " />
-          <DropdownMenuItem
-            onClick={() => signOut(auth)}
-            className="cursor-pointer text-red-400"
-          >
-            Log Out
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      ) : (
-        <DropdownMenuContent
-          sideOffset={8}
-          className="border-secondary border-2 rounded-xl w-40"
-          align="start"
-        >
-          <Link href={"/signup"}>
-            <DropdownMenuItem className="cursor-pointer">
-              Sign up
-            </DropdownMenuItem>
-          </Link>
-
-          <Link href={"/login"}>
-            <DropdownMenuItem className="cursor-pointer">
-              Log In
-            </DropdownMenuItem>
-          </Link>
-
-          <DropdownMenuSeparator className=" h-[2px]  " />
-          <Link href={"/login"}>
-            <DropdownMenuItem className="cursor-pointer">
-              Sell an Item
-            </DropdownMenuItem>
-          </Link>
-        </DropdownMenuContent>
-      )}
+      {user ? <LoggedInDropdown />:<LoggedOutDropDown />}
     </DropdownMenu>
   );
 };

@@ -81,9 +81,9 @@ const NavCategories = () => {
   return (
     <div className="max-w-7xl mx-auto flex items-center mt-4 gap-7 px-4 justify-evenly overflow-x-scroll scrollbar-hide">
       {categories.map((cat) => (
-        <NavCategory categoryLink={cat.link} categoryName={cat.name}>
-          {cat.icon}
-        </NavCategory>
+        <NavCategory categoryLink={cat.link} categoryName={cat.name} categoryIcon={cat.icon}/>
+          
+        
       ))}
     </div>
   );

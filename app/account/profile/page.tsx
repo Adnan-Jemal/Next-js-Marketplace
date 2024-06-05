@@ -1,9 +1,9 @@
-"use client";
+
+
 import DeleteAccount from "@/components/account/profile/DeleteAccount";
 import ProfileForm from "@/components/account/profile/ProfileForm";
 import ProfileProfile from "@/components/account/profile/Profileprofile";
 import SkeletonProfileForm from "@/components/account/profile/SkeletonProfileForm";
-import { Button } from "@/components/ui/button";
 
 import { auth, db } from "@/firebase";
 

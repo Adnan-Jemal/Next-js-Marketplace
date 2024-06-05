@@ -55,6 +55,7 @@ const ProfileForm = ({ user, userData }: propType) => {
   //function to add data to db on submit
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsUpdating(true);
+    
     await setDoc(doc(collection(db, "users"), user?.uid), {
       ...userData,
       email: user?.email,
