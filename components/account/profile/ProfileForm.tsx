@@ -7,23 +7,25 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { db } from "@/firebase";
+import { auth, db } from "@/firebase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import { collection, doc, setDoc } from "firebase/firestore";
-import { UserDocumentType } from "@/types";
-import { User } from "firebase/auth";
-
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 
 const formSchema = z.object({
-  email: z.string().email({
-    message: "Invalid email",
-  }),
+  email: z
+    .string()
+    .email({
+      message: "Invalid email",
+    })
+    .optional(),
   name: z.string().min(3, {
     message: "Enter name correctly",
   }),
@@ -31,23 +33,29 @@ const formSchema = z.object({
 
   address: z.string().optional(),
 });
-//types
-type propType = {
-  userData: UserDocumentType | null;
-  user: User | null | undefined;
-};
 
-const ProfileForm = ({ user, userData }: propType) => {
+const ProfileForm = () => {
+  const [user] = useAuthState(auth);
+  const [userData] = useDocumentData(user ? doc(db, "users", user.uid) : null);
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: userData?.email,
-      name: userData?.name,
-      address: userData?.address || "",
-      phoneNumber: userData?.phoneNumber || "",
+      email: "",
+      name: "",
+      address: "",
+      phoneNumber: "",
     },
   });
+  //for default value
+  useEffect(() => {
+    if (userData) {
+      form.setValue("email", userData.email || "");
+      form.setValue("name", userData.name || "");
+      form.setValue("address", userData.address || "");
+      form.setValue("phoneNumber", userData.phoneNumber || "");
+    }
+  }, [userData, form.setValue]);
   //states for button  disabling and loading
   const [isUpdating, setIsUpdating] = useState(false);
   const [Updated, setUpdated] = useState(false);
@@ -55,7 +63,7 @@ const ProfileForm = ({ user, userData }: propType) => {
   //function to add data to db on submit
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsUpdating(true);
-    
+
     await setDoc(doc(collection(db, "users"), user?.uid), {
       ...userData,
       email: user?.email,
@@ -87,6 +95,7 @@ const ProfileForm = ({ user, userData }: propType) => {
                       <Input
                         className="py-7 mt-3 shadow-sm"
                         placeholder="Full Name ..."
+                        defaultValue={userData?.name || ""}
                         onFocus={() => setUpdated(true)}
                         {...field}
                       />
@@ -109,6 +118,7 @@ const ProfileForm = ({ user, userData }: propType) => {
                         className="py-7 mt-3 disabled:bg-secondary shadow-sm"
                         placeholder="Email ..."
                         disabled={true}
+                        defaultValue={user?.email || ""}
                         {...field}
                       />
                     </FormControl>
@@ -132,6 +142,7 @@ const ProfileForm = ({ user, userData }: propType) => {
                         onFocus={() => setUpdated(true)}
                         className="py-7 mt-3 shadow-sm"
                         placeholder="Phone Number ..."
+                        defaultValue={userData?.phoneNumber || ""}
                         {...field}
                       />
                     </FormControl>
@@ -153,6 +164,7 @@ const ProfileForm = ({ user, userData }: propType) => {
                         onFocus={() => setUpdated(true)}
                         className="py-7 mt-3 shadow-sm"
                         placeholder="Address ..."
+                        defaultValue={userData?.address || ""}
                         {...field}
                       />
                     </FormControl>

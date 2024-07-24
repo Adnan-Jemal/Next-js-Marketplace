@@ -1,17 +1,18 @@
+'use client'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { UserDocumentType } from "@/types";
-import { User } from "firebase/auth";
 import PhotoUpdateBtn from "./PhotoUpdateBtn";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "@/firebase";
+import { useDocumentData } from "react-firebase-hooks/firestore";
+import { doc } from "firebase/firestore";
 
-type propType = {
-  userData: UserDocumentType | null | undefined;
-  user: User | null | undefined;
-  userDataLoading: Boolean;
-};
 
-const ProfileProfile = ({ user, userData, userDataLoading }: propType) => {
+const ProfileProfile = () => {
+  const [user] = useAuthState(auth)
+  const [userData, userDataLoading,] = useDocumentData(
+    user ? doc(db, "users", user.uid) : null
+  );
   return (
     <div className="flex items-center gap-6 flex-wrap justify-center md:justify-start  ">
       {user ? (
